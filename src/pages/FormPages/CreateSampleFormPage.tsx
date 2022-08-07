@@ -30,12 +30,7 @@ export const CreateSampleFormPage = () => {
   function handleMaterialTypeChange(event: React.FormEvent<HTMLFormElement>) {
     setMaterialType(event.currentTarget.value);
   }
-
-  function resetAlertOptions() {
-    setSuccess(false);
-    setFailure(false);
-  }
-
+  
   // Function to create a Sample
   function postData(event: React.MouseEvent<HTMLElement>) {
     event.preventDefault();

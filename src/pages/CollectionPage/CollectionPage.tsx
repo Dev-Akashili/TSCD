@@ -31,6 +31,7 @@ export const CollectionPage = () => {
         setPost(res.data);
       })
       .catch((err) => console.log(err));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const { diseaseTerm, id, title } = post;
@@ -62,7 +63,8 @@ export const CollectionPage = () => {
   // Get all Relevant Samples
   const samplesForCollection = samplePost.filter((sample) => {
     const { collectionId } = sample;
-    return collectionId == pageId;
+    const collectionIdString = `${collectionId}`;
+    return collectionIdString === pageId;
   });
 
   // Function to render and/or delete the Samples Table
