@@ -1,38 +1,32 @@
-import * as React from "react"
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { ChakraProvider } from "@chakra-ui/react";
+import { HomePage } from "./pages/HomePage";
+import { ErrorPage } from "./pages/ErrorPage";
+import { CollectionPage } from "./pages/CollectionPage";
 import {
-  ChakraProvider,
-  Box,
-  Text,
-  Link,
-  VStack,
-  Code,
-  Grid,
-  theme,
-} from "@chakra-ui/react"
-import { ColorModeSwitcher } from "./ColorModeSwitcher"
-import { Logo } from "./Logo"
+  CreateCollectionFormPage,
+  CreateSampleFormPage,
+} from "./pages/FormPages";
 
 export const App = () => (
-  <ChakraProvider theme={theme}>
-    <Box textAlign="center" fontSize="xl">
-      <Grid minH="100vh" p={3}>
-        <ColorModeSwitcher justifySelf="flex-end" />
-        <VStack spacing={8}>
-          <Logo h="40vmin" pointerEvents="none" />
-          <Text>
-            Edit <Code fontSize="xl">src/App.tsx</Code> and save to reload.
-          </Text>
-          <Link
-            color="teal.500"
-            href="https://chakra-ui.com"
-            fontSize="2xl"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn Chakra
-          </Link>
-        </VStack>
-      </Grid>
-    </Box>
+  <ChakraProvider>
+    <Router>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route
+          path="/createcollections"
+          element={<CreateCollectionFormPage />}
+        />
+        <Route
+          path="/collections/:displayId/:id"
+          element={<CollectionPage />}
+        />
+        <Route
+          path="/createsample/:displayId/:id"
+          element={<CreateSampleFormPage />}
+        />
+        <Route path="*" element={<ErrorPage />} />
+      </Routes>
+    </Router>
   </ChakraProvider>
-)
+);
