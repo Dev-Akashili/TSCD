@@ -75,7 +75,11 @@ export const CreateCollectionFormPage = () => {
 
   return (
     <PageLayout>
-      <HeadingComponent name="Create Collection" color="teal" />
+      <HeadingComponent
+        name="Create Collection"
+        color="teal"
+        topMargin="20px"
+      />
       <FormLayout>
         <FormInput
           height="50px"

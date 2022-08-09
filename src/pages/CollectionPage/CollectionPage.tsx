@@ -104,12 +104,16 @@ export const CollectionPage = () => {
   } else {
     return (
       <PageLayout>
-        <Heading name={pageTitle} color="teal" />
+        <Heading name={pageTitle} color="teal" topMargin="20px" />
         <CollectionHeading
           first_heading={first_heading}
           second_heading={second_heading}
         />
-        {samplesArray.length ? <Heading name="Samples" color="teal" /> : <></>}
+        {samplesArray.length ? (
+          <Heading name="Samples" color="teal" bottomMargin="20px" />
+        ) : (
+          <></>
+        )}
         {samplesArray.length ? (
           <TableLayout>
             <SampleTableHead

@@ -30,7 +30,7 @@ export const CreateSampleFormPage = () => {
   function handleMaterialTypeChange(event: React.FormEvent<HTMLFormElement>) {
     setMaterialType(event.currentTarget.value);
   }
-  
+
   // Function to create a Sample
   function postData(event: React.MouseEvent<HTMLElement>) {
     event.preventDefault();
@@ -77,7 +77,11 @@ export const CreateSampleFormPage = () => {
 
   return (
     <PageLayout>
-      <HeadingComponent name="Create Sample" color="teal" />
+      <HeadingComponent
+        name="Create Sample"
+        color="teal"
+        topMargin="20px"
+      />
       <FormLayout>
         <FormInput
           height="50px"

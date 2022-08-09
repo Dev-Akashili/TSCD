@@ -44,7 +44,7 @@ export const HomeTablePage = () => {
   }
 
   if (post.length === 0) {
-    return <Spinner size="xl" color="teal" />;
+    return <Spinner size="xl" color="teal" margin="60px 0px 60px 0px" />;
   } else {
     return (
       <TableLayout>
