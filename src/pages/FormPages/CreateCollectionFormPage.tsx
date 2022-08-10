@@ -8,6 +8,7 @@ import { PageLayout } from "../../layouts/PageLayout";
 import { AlertComponent } from "../../components/Alert";
 import { ButtonLayout } from "../../layouts/ButtonLayout";
 import { Link } from "react-router-dom";
+import { SpinnerComponent as Spinner } from "../../components/Spinner";
 
 export const CreateCollectionFormPage = () => {
   // State management for all Parameters
@@ -17,6 +18,7 @@ export const CreateCollectionFormPage = () => {
   const [titleValidation, setTitleValidation] = useState("");
   const [success, setSuccess] = useState(false);
   const [failure, setFailure] = useState(false);
+  const [spinnerValidation, setSpinnerValidation] = useState(false);
 
   // Functions to update Input Data to state variables
   function handleDiseaseTermChange(event: React.FormEvent<HTMLFormElement>) {
@@ -34,6 +36,13 @@ export const CreateCollectionFormPage = () => {
 
   // Function to create a Collection
   function postData(event: React.MouseEvent<HTMLElement>) {
+    if (success) {
+      setSuccess(false);
+    }
+    if (failure) {
+      setFailure(false);
+    }
+    setSpinnerValidation(true);
     event.preventDefault();
 
     // Custom form validation
@@ -61,13 +70,16 @@ export const CreateCollectionFormPage = () => {
         .then((res) => {
           if (res.status === 201) {
             setSuccess(true);
+            setSpinnerValidation(false);
           } else {
             setFailure(true);
+            setSpinnerValidation(false);
           }
         })
         .catch((err) => {
           if (err) {
             setFailure(true);
+            setSpinnerValidation(false);
           }
         });
     }
@@ -121,6 +133,15 @@ export const CreateCollectionFormPage = () => {
         <AlertComponent
           type="success"
           message="You have succesfully added a new collection"
+        />
+      ) : (
+        <></>
+      )}
+      {spinnerValidation ? (
+        <Spinner
+          name="Adding new collection please wait..."
+          size="xl"
+          color="teal"
         />
       ) : (
         <></>

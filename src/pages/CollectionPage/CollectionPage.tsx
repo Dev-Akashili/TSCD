@@ -100,7 +100,13 @@ export const CollectionPage = () => {
   }
 
   if (diseaseTerm === undefined || title === undefined || id === undefined) {
-    return <Spinner size="xl" color="teal" />;
+    return (
+      <Spinner
+        name="Loading sample details please wait..."
+        size="xl"
+        color="teal"
+      />
+    );
   } else {
     return (
       <PageLayout>

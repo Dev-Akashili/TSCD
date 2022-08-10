@@ -7,7 +7,8 @@ import { FormLayout } from "../../layouts/FormLayout";
 import { PageLayout } from "../../layouts/PageLayout";
 import { Link, useParams } from "react-router-dom";
 import { ButtonLayout } from "../../layouts/ButtonLayout";
-import { AlertComponent } from "../../components/Alert";
+import { AlertComponent as Alert } from "../../components/Alert";
+import { SpinnerComponent as Spinner } from "../../components/Spinner";
 
 export const CreateSampleFormPage = () => {
   // State management for variables
@@ -16,6 +17,7 @@ export const CreateSampleFormPage = () => {
   const [failure, setFailure] = useState(false);
   const [donorCount, setDonorCount] = useState();
   const [materialType, setMaterialType] = useState();
+  const [spinnerValidation, setSpinnerValidation] = useState(false);
   const [donorCountValidation, setDonorCountValidation] = useState("");
   const [materialTypeValidation, setMaterialTypeValidation] = useState("");
 
@@ -33,6 +35,13 @@ export const CreateSampleFormPage = () => {
 
   // Function to create a Sample
   function postData(event: React.MouseEvent<HTMLElement>) {
+    if (success) {
+      setSuccess(false);
+    }
+    if (failure) {
+      setFailure(false);
+    }
+    setSpinnerValidation(true);
     event.preventDefault();
 
     // Custom form validation
@@ -63,13 +72,16 @@ export const CreateSampleFormPage = () => {
         .then((res) => {
           if (res.status === 201) {
             setSuccess(true);
+            setSpinnerValidation(false);
           } else {
             setFailure(true);
+            setSpinnerValidation(false);
           }
         })
         .catch((err) => {
           if (err) {
             setFailure(true);
+            setSpinnerValidation(false);
           }
         });
     }
@@ -77,11 +89,7 @@ export const CreateSampleFormPage = () => {
 
   return (
     <PageLayout>
-      <HeadingComponent
-        name="Create Sample"
-        color="teal"
-        topMargin="20px"
-      />
+      <HeadingComponent name="Create Sample" color="teal" topMargin="20px" />
       <FormLayout>
         <FormInput
           height="50px"
@@ -119,18 +127,24 @@ export const CreateSampleFormPage = () => {
         </ButtonLayout>
       </FormLayout>
       {success ? (
-        <AlertComponent
+        <Alert
           type="success"
-          message="You have succesfully added a new collection"
+          message="You have succesfully added a new sample"
+        />
+      ) : (
+        <></>
+      )}
+      {spinnerValidation ? (
+        <Spinner
+          name="Adding new sample please wait..."
+          size="xl"
+          color="teal"
         />
       ) : (
         <></>
       )}
       {failure ? (
-        <AlertComponent
-          type="error"
-          message="Failed to create a new collection"
-        />
+        <Alert type="error" message="Failed to create a new sample" />
       ) : (
         <></>
       )}
