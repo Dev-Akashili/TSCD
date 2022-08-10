@@ -41,7 +41,6 @@ export const CreateSampleFormPage = () => {
     if (failure) {
       setFailure(false);
     }
-    setSpinnerValidation(true);
     event.preventDefault();
 
     // Custom form validation
@@ -60,6 +59,7 @@ export const CreateSampleFormPage = () => {
     } else {
       setDonorCountValidation("");
       setMaterialTypeValidation("");
+      setSpinnerValidation(true);
 
       const test: any = displayId;
 

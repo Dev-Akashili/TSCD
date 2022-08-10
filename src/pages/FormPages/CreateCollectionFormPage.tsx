@@ -42,7 +42,6 @@ export const CreateCollectionFormPage = () => {
     if (failure) {
       setFailure(false);
     }
-    setSpinnerValidation(true);
     event.preventDefault();
 
     // Custom form validation
@@ -61,6 +60,7 @@ export const CreateCollectionFormPage = () => {
     } else {
       setDiseaseTermValidation("");
       setTitleValidation("");
+      setSpinnerValidation(true);
 
       //Send new Collection data to database
       Axios.post("https://tscd-ignition.herokuapp.com/collections", {
