@@ -57,33 +57,38 @@ export const CreateSampleFormPage = () => {
         setMaterialTypeValidation("This field cannot be left empty");
       }
     } else {
-      setDonorCountValidation("");
-      setMaterialTypeValidation("");
-      setSpinnerValidation(true);
+      const donorCountInt = parseInt(donorCount, 10);
+      if (isNaN(donorCountInt) || donorCountInt <= 0) {
+        setDonorCountValidation("Fill in a valid number");
+      } else {
+        setDonorCountValidation("");
+        setMaterialTypeValidation("");
+        setSpinnerValidation(true);
 
-      const test: any = displayId;
+        const test: any = displayId;
 
-      // Send data to database to create new sample and update
-      Axios.post("https://tscd-ignition.herokuapp.com/samples", {
-        donorCount,
-        materialType,
-        collectionId: test,
-      })
-        .then((res) => {
-          if (res.status === 201) {
-            setSuccess(true);
-            setSpinnerValidation(false);
-          } else {
-            setFailure(true);
-            setSpinnerValidation(false);
-          }
+        // Send data to database to create new sample and update
+        Axios.post("https://tscd-ignition.herokuapp.com/samples", {
+          donorCount,
+          materialType,
+          collectionId: test,
         })
-        .catch((err) => {
-          if (err) {
-            setFailure(true);
-            setSpinnerValidation(false);
-          }
-        });
+          .then((res) => {
+            if (res.status === 201) {
+              setSuccess(true);
+              setSpinnerValidation(false);
+            } else {
+              setFailure(true);
+              setSpinnerValidation(false);
+            }
+          })
+          .catch((err) => {
+            if (err) {
+              setFailure(true);
+              setSpinnerValidation(false);
+            }
+          });
+      }
     }
   }
 
